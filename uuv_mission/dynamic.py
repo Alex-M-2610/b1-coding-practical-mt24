@@ -97,8 +97,8 @@ class ClosedLoop:
             raise ValueError("Disturbances must be at least as long as mission duration")
         
         positions = np.zeros((T, 2))
-        actions = np.zeros(T)
         self.plant.reset_state()
+        self.controller.reset()
 
         for t in range(T):
             positions[t] = self.plant.get_position()
