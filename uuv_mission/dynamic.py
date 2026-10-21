@@ -78,9 +78,9 @@ class Mission:
         # You are required to implement this method
         data = np.loadtxt(file_name, delimiter=',') 
         #Reads from csv and stores the data in a numpy array
-        reference = data[:, 0]
-        cave_height = data[:, 1]
-        cave_depth = data[:, 2]
+        reference = data[1:, 0]
+        cave_height = data[1:, 1]
+        cave_depth = data[1:, 2]
 
         return cls(reference, cave_height, cave_depth)
 
