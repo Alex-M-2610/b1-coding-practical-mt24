@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 import numpy as np
 import matplotlib.pyplot as plt
+import pandas as pd
 from .terrain import generate_reference_and_limits
 
 class Submarine:
@@ -75,13 +76,10 @@ class Mission:
 
     @classmethod
     def from_csv(cls, file_name: str):
-        # You are required to implement this method
-        data = np.loadtxt(file_name, delimiter=',') 
-        #Reads from csv and stores the data in a numpy array
-        reference = data[1:, 0]
-        cave_height = data[1:, 1]
-        cave_depth = data[1:, 2]
-
+        df = pd.read_csv(file_name)
+        reference = df['reference'].to_numpy()
+        cave_height = df['cave_height'].to_numpy()
+        cave_depth = df['cave_depth'].to_numpy()
         return cls(reference, cave_height, cave_depth)
 
 
