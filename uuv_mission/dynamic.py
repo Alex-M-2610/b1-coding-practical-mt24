@@ -95,6 +95,7 @@ class ClosedLoop:
             raise ValueError("Disturbances must be at least as long as mission duration")
         
         positions = np.zeros((T, 2))
+        actions = np.zeros(T)
         self.plant.reset_state()
         self.controller.reset()
 
@@ -102,8 +103,8 @@ class ClosedLoop:
             positions[t] = self.plant.get_position()
             observation_t = self.plant.get_depth()
             #compute the action based on the current observation and the reference depth
-            action_t = self.controller(observation_t, mission.reference[t])
-            self.plant.transition(action_t, disturbances[t])
+            actions[t] = self.controller(observation_t, mission.reference[t])
+            self.plant.transition(actions[t], disturbances[t])
 
         return Trajectory(positions)
         
