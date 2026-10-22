@@ -4,8 +4,12 @@ class PDController:
         self.kd = kd
         self.previous_error = 0.0
 
-    def reset(self) -> None:
-        self.previous_error = 0.0
+    def reset(self):
+        self.previous_error = None
+
+    def __call__(self, reference: float, output: float) -> float:
+        if self.previous_error is None:
+            self.previous_error = 0
 
     def __call__(self, reference: float, output: float) -> float:
         error = reference - output
